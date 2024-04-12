@@ -39,6 +39,7 @@ export interface FacebookEmbedProps extends DivProps {
   retryDisabled?: boolean;
   frame?: Frame;
   debug?: boolean;
+  dataProps?: { [key: string]: string };
 }
 
 export const FacebookEmbed = ({
@@ -57,6 +58,7 @@ export const FacebookEmbed = ({
   retryDisabled = false,
   frame = undefined,
   debug = false,
+  dataProps,
   ...divProps
 }: FacebookEmbedProps) => {
   const [stage, setStage] = React.useState(CHECK_SCRIPT_STAGE);
@@ -196,7 +198,6 @@ export const FacebookEmbed = ({
 
   return (
     <div
-      {...divProps}
       className={classNames('rsme-embed rsme-facebook-embed', divProps.className)}
       style={{
         overflow: 'hidden',
@@ -217,6 +218,7 @@ export const FacebookEmbed = ({
             width: isPercentageWidth ? '100%' : width ?? defaultEmbedWidth,
             height: isPercentageHeight ? '100%' : height ?? undefined,
           }}
+          {...dataProps}
         ></div>
       </div>
       {!embedSuccess && !placeholderDisabled && placeholder}
